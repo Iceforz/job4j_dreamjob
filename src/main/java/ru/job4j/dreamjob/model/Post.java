@@ -1,4 +1,4 @@
-package dreamjob.dream.model;
+package ru.job4j.dreamjob.model;
 
 import java.time.LocalDate;
 import java.util.Objects;
