@@ -3,13 +3,13 @@ package ru.job4j.dreamjob.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import ru.job4j.dreamjob.store.Storage;
+import ru.job4j.dreamjob.store.CandidateStore;
 
 
 @Controller
-public class Control {
+public class CandidateControl {
 
-    private final Storage store = Storage.instOf();
+    private final CandidateStore store = CandidateStore.instOf();
 
     @GetMapping("/candidates")
     public String candidates(Model model) {
