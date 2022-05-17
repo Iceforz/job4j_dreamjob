@@ -1,6 +1,6 @@
-package dream.store;
+package dreamjob.dream.store;
 
-import dream.model.Post;
+import dreamjob.dream.model.Post;
 
 import java.time.LocalDate;
 import java.util.Collection;
