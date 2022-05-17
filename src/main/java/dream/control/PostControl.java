@@ -8,7 +8,6 @@ import dream.store.PostStore;
 
 @Controller
 public class PostControl {
-
     private final PostStore store = PostStore.instOf();
 
     @GetMapping("/posts")
