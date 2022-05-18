@@ -17,6 +17,19 @@ public class PostStore {
         posts.put(3, new Post(3, "Senior Java Job", "specialist", LocalDate.of(2022, 5, 15)));
     }
 
+    public void add(Post post) {
+        posts.put(post.getId(), post);
+    }
+
+    public Post findById(int id) {
+        return posts.get(id);
+    }
+
+    public void updatePost(Post post) {
+        posts.replace(post.getId(), post);
+    }
+
+
     public static PostStore instOf() {
         return INST;
     }
