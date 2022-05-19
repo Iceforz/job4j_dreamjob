@@ -40,4 +40,5 @@ public class CandidateStore {
     public Collection<Candidate> findAll() {
         return candidates.values();
     }
+
 }
