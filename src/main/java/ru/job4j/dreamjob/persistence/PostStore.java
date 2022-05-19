@@ -11,6 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
 public class PostStore {
+
     private final Map<Integer, Post> posts = new ConcurrentHashMap<>();
     private final static AtomicInteger POST_ID = new AtomicInteger(3);
 

@@ -12,6 +12,7 @@ import ru.job4j.dreamjob.sevices.PostService;
 
 @Controller
 public class PostControl {
+
     private final PostService service;
 
     public PostControl(PostService service) {
