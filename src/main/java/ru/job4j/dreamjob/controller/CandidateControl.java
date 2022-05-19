@@ -1,5 +1,6 @@
 package ru.job4j.dreamjob.controller;
 
+import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,18 +8,21 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.dreamjob.model.Candidate;
-import ru.job4j.dreamjob.model.Post;
-import ru.job4j.dreamjob.store.CandidateStore;
+import ru.job4j.dreamjob.sevices.CandidateService;
 
-
+@ThreadSafe
 @Controller
 public class CandidateControl {
 
-    private final CandidateStore store = CandidateStore.instOf();
+    private final CandidateService service;
+
+    public CandidateControl(CandidateService service) {
+        this.service = service;
+    }
 
     @GetMapping("/candidates")
     public String candidates(Model model) {
-        model.addAttribute("candidates", store.findAll());
+        model.addAttribute("candidates", service.findAll());
         return "candidates";
     }
 
@@ -31,19 +35,19 @@ public class CandidateControl {
 
     @PostMapping("/createCandidate")
     public String createCandidate(@ModelAttribute Candidate candidate) {
-        store.add(candidate);
+        service.add(candidate);
         return "redirect:/candidates";
     }
 
     @GetMapping("/formUpdateCandidate")
     public String updateCandidate(Model model, @PathVariable("candidateID")int id) {
-        model.addAttribute("candidate", store.findById(id));
+        model.addAttribute("candidate", service.findById(id));
         return "updateCandidate";
     }
 
     @PostMapping("/updateCandidate")
     public String updateCandidate(@ModelAttribute Candidate candidate) {
-        store.updateCandidate(candidate);
+        service.updateCandidate(candidate);
         return "redirect:/candidates";
     }
 }
