@@ -26,9 +26,8 @@ public class CandidateControl {
     }
 
     @GetMapping("/candidates")
-        public String addCandidate(@ModelAttribute Candidate candidate,
-                @RequestParam("file") MultipartFile file) throws IOException {
-            candidate.setPhoto(file.getBytes());
+    public String candidates(Model model) {
+        model.addAttribute("candidates", candidateService.findAll());
         return "candidates";
     }
 
