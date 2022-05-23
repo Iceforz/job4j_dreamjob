@@ -9,15 +9,18 @@ public class Candidate {
     private String description;
     private LocalDate created;
     private byte[] photo;
+    private City city;
 
 
     public Candidate() { }
 
-    public Candidate(int id, String name, String description, LocalDate created) {
+    public Candidate(int id, String name, String description, LocalDate created,byte[] photo, City city) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.created = created;
+        this.photo = photo;
+        this.city = city;
     }
 
     public int getId() {
@@ -58,6 +61,13 @@ public class Candidate {
 
     public void setPhoto(byte[] photo) {
         this.photo = photo;
+    }
+
+    public City getCity() {
+        return city;
+    }
+    public void setCity(City city) {
+        this.city = city;
     }
 
     @Override

@@ -18,12 +18,6 @@ public class CandidateStore {
 
     private final static AtomicInteger CANDIDATE_ID = new AtomicInteger(3);
 
-    private CandidateStore() {
-        candidates.put(1, new Candidate(1, "Junior Java Job", "specialist", LocalDate.of(2022, 5, 15)));
-        candidates.put(2, new Candidate(2, "Middle Java Job", "specialist", LocalDate.of(2022, 5, 15)));
-    candidates.put(3, new Candidate(3, "Senior Java Job", "specialist", LocalDate.of(2022, 5, 15)));
-    }
-
     public void add(Candidate candidate) {
         candidates.put(candidate.getId(), candidate);
         candidate.setId(CANDIDATE_ID.incrementAndGet());

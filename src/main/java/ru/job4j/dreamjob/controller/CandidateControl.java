@@ -13,6 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 import ru.job4j.dreamjob.model.Candidate;
 import ru.job4j.dreamjob.sevices.CandidateService;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 @ThreadSafe
@@ -34,7 +36,7 @@ public class CandidateControl {
        @GetMapping("/formAddCandidate")
     public String addCandidate(Model model) {
         model.addAttribute("candidate",
-                new Candidate(0, "Заполните поле", "Заполните поле", null));
+                new Candidate(0, "Заполните поле", "Заполните поле", null, null, null));
         return "addCandidate";
     }
 
@@ -42,6 +44,7 @@ public class CandidateControl {
     public String createCandidate(@ModelAttribute Candidate candidate,
                                   @RequestParam("file") MultipartFile file) throws IOException {
         candidate.setPhoto(file.getBytes());
+        candidate.setCreated(LocalDate.now());
         candidateService.add(candidate);
         return "redirect:/candidates";
     }
