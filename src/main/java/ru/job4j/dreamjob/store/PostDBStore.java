@@ -4,8 +4,9 @@ import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
+import ru.job4j.dreamjob.model.City;
 import ru.job4j.dreamjob.model.Post;
-import ru.job4j.dreamjob.sevices.CityService;
+
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -21,11 +22,9 @@ public class PostDBStore {
     private static final Logger logger = LogManager.getLogger(PostDBStore.class);
 
     private final BasicDataSource pool;
-    private final CityService cityService;
 
-    public PostDBStore(BasicDataSource pool, CityService cityService) {
+    public PostDBStore(BasicDataSource pool) {
         this.pool = pool;
-        this.cityService = cityService;
     }
 
     public List<Post> findAll() {
@@ -35,8 +34,12 @@ public class PostDBStore {
         ) {
             try (ResultSet it = ps.executeQuery()) {
                 while (it.next()) {
-                    posts.add(new Post(it.getInt("id"), it.getString("name"), it.getString("description"),
-                            it.getDate("created").toLocalDate(), cityService.findById(it.getInt("city_id"))));
+                    posts.add(new Post(it.getInt("id"),
+                            it.getString("name"),
+                            it.getString("description"),
+                            it.getDate("created").toLocalDate(),
+                            it.getBoolean("visible"),
+                            new City(it.getInt("city_id"), null)));
                 }
             }
         } catch (Exception e) {
@@ -48,13 +51,14 @@ public class PostDBStore {
 
     public Post add(Post post) {
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps =  cn.prepareStatement("INSERT INTO post(name) VALUES (?)",
+             PreparedStatement ps =  cn.prepareStatement("INSERT INTO post(name, description, created , visible ,city_id) VALUES (?, ? , ?, ?, ?)",
                      PreparedStatement.RETURN_GENERATED_KEYS)
         ) {
             ps.setString(1, post.getName());
             ps.setString(2, post.getDescription());
-            ps.setDate(4, Date.valueOf(LocalDate.now()));
-            ps.setInt(3, post.getCity().getId());
+            ps.setDate(3, Date.valueOf(LocalDate.now()));
+            ps.setBoolean(4, post.isVisible());
+            ps.setInt(5, post.getCity().getId());
             ps.execute();
             try (ResultSet id = ps.getGeneratedKeys()) {
                 if (id.next()) {
@@ -69,13 +73,14 @@ public class PostDBStore {
 
     public void updatePost(Post post) {
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps =  cn.prepareStatement("INSERT INTO post(name) VALUES (?)",
+             PreparedStatement ps =  cn.prepareStatement("INSERT INTO post(name, description, created , visible ,city_id) VALUES (?, ? , ?, ?, ?)",
                      PreparedStatement.RETURN_GENERATED_KEYS)
         ) {
             ps.setString(1, post.getName());
             ps.setString(2, post.getDescription());
-            ps.setDate(4, Date.valueOf(LocalDate.now()));
-            ps.setInt(3, post.getCity().getId());
+            ps.setDate(3, Date.valueOf(LocalDate.now()));
+            ps.setBoolean(4, post.isVisible());
+            ps.setInt(5, post.getCity().getId());
             ps.execute();
             try (ResultSet id = ps.getGeneratedKeys()) {
                 if (id.next()) {
@@ -98,7 +103,8 @@ public class PostDBStore {
                             it.getString("name"),
                     it.getString("description"),
                             it.getDate("created").toLocalDate(),
-                            cityService.findById(it.getInt("city_id")));
+                            it.getBoolean("visible"),
+                            new City(it.getInt("city_id"), null));
                 }
             }
         } catch (Exception e) {

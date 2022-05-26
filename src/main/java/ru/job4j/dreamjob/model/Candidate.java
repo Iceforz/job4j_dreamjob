@@ -1,9 +1,10 @@
 package ru.job4j.dreamjob.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Candidate {
+public class Candidate implements Serializable {
     private int id;
     private String name;
     private String description;
@@ -11,10 +12,7 @@ public class Candidate {
     private byte[] photo;
     private City city;
 
-
-    public Candidate() { }
-
-    public Candidate(int id, String name, String description, LocalDate created,byte[] photo, City city) {
+    public Candidate(int id, String name, String description, LocalDate created, byte[] photo, City city) {
         this.id = id;
         this.name = name;
         this.description = description;

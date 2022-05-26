@@ -21,11 +21,11 @@ public class CandidateService {
     public Collection<Candidate> findAll() {
         List<Candidate> candidates = store.findAll();
         candidates.forEach(
-                post -> post.setCity(
-                        cityService.findById(post.getCity().getId())
+                candidate -> candidate.setCity(
+                        cityService.findById(candidate.getCity().getId())
                 )
         );
-        return store.findAll();
+        return candidates;
     }
 
     public void add(Candidate candidate) {

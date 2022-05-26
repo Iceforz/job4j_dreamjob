@@ -5,7 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
 import ru.job4j.dreamjob.model.Candidate;
-import ru.job4j.dreamjob.sevices.CityService;
+import ru.job4j.dreamjob.model.City;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -21,11 +21,9 @@ public class CandidateDbStore {
     private static final Logger logger = LogManager.getLogger(CandidateDbStore.class);
 
     private final BasicDataSource pool;
-    private final CityService cityService;
 
-    public CandidateDbStore(BasicDataSource pool, CityService cityService) {
+    public CandidateDbStore(BasicDataSource pool) {
         this.pool = pool;
-        this.cityService = cityService;
     }
 
     public List<Candidate> findAll() {
@@ -40,7 +38,7 @@ public class CandidateDbStore {
                             it.getString("description"),
                             it.getDate("created").toLocalDate(),
                             it.getBytes("photo"),
-                            cityService.findById(it.getInt("city_id"))));
+                            new City(it.getInt("city_id"), null)));
                 }
             }
         } catch (Exception e) {
@@ -52,7 +50,8 @@ public class CandidateDbStore {
 
     public Candidate add(Candidate candidate) {
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps =  cn.prepareStatement("INSERT INTO candidate(name) VALUES (?)",
+             PreparedStatement ps =  cn.prepareStatement("INSERT INTO candidate(name, description, created, photo , city_id)" +
+                             " VALUES (?, ?, ?, ?, ?)",
                      PreparedStatement.RETURN_GENERATED_KEYS)
         ) {
             ps.setString(1, candidate.getName());
@@ -75,7 +74,8 @@ public class CandidateDbStore {
 
     public void updateCandidate(Candidate candidate) {
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps =  cn.prepareStatement("INSERT INTO candidate(name) VALUES (?)",
+             PreparedStatement ps =  cn.prepareStatement("INSERT INTO candidate(name, description, created, photo, city_id)" +
+                             " VALUES (?, ?, ?, ?, ?)",
                      PreparedStatement.RETURN_GENERATED_KEYS)
         ) {
             ps.setString(1, candidate.getName());
@@ -107,7 +107,7 @@ public class CandidateDbStore {
                             it.getString("description"),
                             it.getDate("created").toLocalDate(),
                             it.getBytes("photo"),
-                            cityService.findById(it.getInt("city_id")));
+                            new City(it.getInt("city_id"), null));
                 }
             }
         } catch (Exception e) {

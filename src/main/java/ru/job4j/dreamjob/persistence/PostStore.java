@@ -17,12 +17,6 @@ public class PostStore {
     private final Map<Integer, Post> posts = new ConcurrentHashMap<>();
     private final static AtomicInteger POST_ID = new AtomicInteger(3);
 
-    private PostStore() {
-        posts.put(1, new Post(1, "Junior Java Job", "specialist", LocalDate.of(2022, 5, 15), null));
-        posts.put(2, new Post(2, "Middle Java Job", "specialist", LocalDate.of(2022, 5, 15), null));
-        posts.put(3, new Post(3, "Senior Java Job", "specialist", LocalDate.of(2022, 5, 15), null));
-    }
-
     public void add(Post post) {
         posts.put(post.getId(), post);
         post.setId(POST_ID.incrementAndGet());

@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.job4j.dreamjob.model.Candidate;
 import ru.job4j.dreamjob.sevices.CandidateService;
+import ru.job4j.dreamjob.sevices.CityService;
+
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 
 
 @ThreadSafe
@@ -22,9 +24,11 @@ import java.time.LocalDateTime;
 public class CandidateControl {
 
     private final CandidateService candidateService;
+    private final CityService cityService;
 
-    public CandidateControl(CandidateService candidateService) {
+    public CandidateControl(CandidateService candidateService, CityService cityService) {
         this.candidateService = candidateService;
+        this.cityService = cityService;
     }
 
     @GetMapping("/candidates")
@@ -35,8 +39,8 @@ public class CandidateControl {
 
        @GetMapping("/formAddCandidate")
     public String addCandidate(Model model) {
-        model.addAttribute("candidate",
-                new Candidate(0, "Заполните поле", "Заполните поле", null, null, null));
+           model.addAttribute("cities", cityService.getAllCities());
+           model.addAttribute("candidate", new Candidate(0, "Заполните поле", "Заполните поле", null, null, null));
         return "addCandidate";
     }
 
