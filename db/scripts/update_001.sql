@@ -14,6 +14,6 @@ CREATE TABLE candidate (
                            name TEXT,
                            description TEXT,
                            created DATE default current_date,
-                           photo bytea
+                           photo bytea,
                            city_id integer
 );

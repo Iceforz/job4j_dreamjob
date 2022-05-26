@@ -50,7 +50,7 @@ public class CandidateDbStore {
 
     public Candidate add(Candidate candidate) {
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps =  cn.prepareStatement("INSERT INTO candidate(name, description, created, photo , city_id)" +
+             PreparedStatement ps =  cn.prepareStatement("INSERT INTO candidate(name, description, created, photo, city_id)" +
                              " VALUES (?, ?, ?, ?, ?)",
                      PreparedStatement.RETURN_GENERATED_KEYS)
         ) {
