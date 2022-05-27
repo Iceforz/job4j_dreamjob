@@ -47,7 +47,6 @@ public class CandidateDbStore {
         return candidates;
     }
 
-
     public Candidate add(Candidate candidate) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps =  cn.prepareStatement("INSERT INTO candidate(name, description, created, photo, city_id)" +

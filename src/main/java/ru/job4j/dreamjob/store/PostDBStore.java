@@ -48,7 +48,6 @@ public class PostDBStore {
         return posts;
     }
 
-
     public Post add(Post post) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps =  cn.prepareStatement("INSERT INTO post(name, description, created , visible ,city_id) VALUES (?, ? , ?, ?, ?)",

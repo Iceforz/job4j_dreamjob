@@ -11,6 +11,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 public class CandidateDbStoreTest {
+
     @Test
     public void whenCreateCandidate() {
         CandidateDbStore store = new CandidateDbStore(new Main().loadPool());
