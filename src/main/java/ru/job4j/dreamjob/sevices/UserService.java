@@ -3,7 +3,6 @@ package ru.job4j.dreamjob.sevices;
 import org.springframework.stereotype.Service;
 import ru.job4j.dreamjob.model.User;
 import ru.job4j.dreamjob.store.UserDbStore;
-
 import java.util.Optional;
 
 @Service

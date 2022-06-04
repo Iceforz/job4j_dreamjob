@@ -27,7 +27,6 @@ public class UserControl {
         return "addUser";
     }
 
-
     @PostMapping("/registration")
     public String registration(Model model, @ModelAttribute User user) {
         Optional<User> regUser = service.add(user);

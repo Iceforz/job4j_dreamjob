@@ -1,6 +1,6 @@
 CREATE TABLE post (
                       id SERIAL PRIMARY KEY,
-                      name TEXT,
+                      name VARCHAR(100),
                       description TEXT,
                       created DATE default current_date,
                       visible BOOLEAN default false,
@@ -11,7 +11,7 @@ CREATE TABLE post (
 
 CREATE TABLE candidate (
                            id SERIAL PRIMARY KEY,
-                           name TEXT,
+                           name VARCHAR(100),
                            description TEXT,
                            created DATE default current_date,
                            photo bytea,
@@ -20,7 +20,7 @@ CREATE TABLE candidate (
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
-    email TEXT,
+    email VARCHAR(100),
     password TEXT
 );
 
