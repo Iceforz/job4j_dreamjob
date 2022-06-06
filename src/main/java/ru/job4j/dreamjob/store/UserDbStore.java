@@ -25,8 +25,7 @@ public class UserDbStore {
         Optional<User> result = Optional.empty();
         try (Connection cn = pool.getConnection();
              PreparedStatement ps =  cn.prepareStatement(
-                     "INSERT INTO users(name, email, password) "
-                             + "VALUES (?, ?, ?)",
+                     "INSERT INTO users(name, email, password)VALUES (?, ?, ?)",
                      PreparedStatement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, user.getName());
             ps.setString(2, user.getEmail());

@@ -40,8 +40,17 @@ public class UserControl {
     }
 
     @GetMapping("/loginPage")
-    public String loginPage(Model model, @RequestParam(name = "fail", required = false) Boolean fail) {
+    public String loginPage(Model model, @RequestParam(name = "fail", required = false) Boolean fail,
+            HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            user = new User();
+            user.setName("Гость");
+        }
+        model.addAttribute("users", user);
         model.addAttribute("fail", fail != null);
+        model.addAttribute("user", new User(
+                0, "Введите имя...","Введите email...", "Введите пароль..."));
         return "login";
     }
 
