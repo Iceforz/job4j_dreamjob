@@ -1,8 +1,7 @@
-package ru.job4j.dreamjob.sevices;
+package ru.job4j.dreamjob.services;
 
 import org.springframework.stereotype.Service;
 import ru.job4j.dreamjob.model.Post;
-import ru.job4j.dreamjob.persistence.PostStore;
 import ru.job4j.dreamjob.store.PostDBStore;
 
 import java.util.Collection;

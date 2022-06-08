@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.dreamjob.model.Post;
 import ru.job4j.dreamjob.model.User;
-import ru.job4j.dreamjob.sevices.CityService;
-import ru.job4j.dreamjob.sevices.PostService;
+import ru.job4j.dreamjob.services.CityService;
+import ru.job4j.dreamjob.services.PostService;
 
 import javax.servlet.http.HttpSession;
 
